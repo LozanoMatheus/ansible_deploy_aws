@@ -1,0 +1,8 @@
+
+- name: Deleting the Auto Scaling Groups
+  ec2_asg:
+    state: absent
+    wait_for_instances: yes
+    region: "{{ aws_region }}"
+    name: "{{ item }}"
+  with_items: "{{ asg_names if asg_names is defined else auto_scaling_group_name }}"

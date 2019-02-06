@@ -1,0 +1,18 @@
+
+- block:
+  - debug: msg="Getting all instances"
+  always:
+  - name: Get All instances
+    ec2_instance_facts:
+      region: "{{ aws_region }}"
+      filters:
+        "tag:Owner": "{{ owner }}"
+        instance-state-name: running
+    register: all_instances
+  - set_fact:
+      instance_ids: "{{ all_instances | json_query('instances[*].instance_id') }}"
+  - name: Creating var file with all instances
+    template:
+      src: "instance_ids.j2"
+      dest: "group_vars/all/tmp_instance_ids.yml"
+      force: yes

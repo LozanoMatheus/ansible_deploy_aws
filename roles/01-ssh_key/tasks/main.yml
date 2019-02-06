@@ -1,0 +1,4 @@
+
+- import_tasks: 01-generate.yml
+
+- import_tasks: 02-publish.yml

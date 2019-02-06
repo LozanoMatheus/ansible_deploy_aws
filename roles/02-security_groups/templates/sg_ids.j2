@@ -1,0 +1,4 @@
+security_group_ids:
+{% for sg_ids in security_group_ids %}
+  - {{ sg_ids }}
+{% endfor %}

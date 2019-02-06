@@ -1,0 +1,10 @@
+
+- name: Setup var for security groups
+  set_fact:
+    security_group_ids: "{{ sg_return.group_id | from_yaml_all | list }}"
+
+- name: Creating var file with all Security Groups
+  template:
+    src: "sg_ids.j2"
+    dest: "group_vars/all/tmp_sg_ids.yml"
+    force: yes

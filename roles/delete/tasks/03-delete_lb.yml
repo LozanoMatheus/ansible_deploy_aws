@@ -1,0 +1,10 @@
+
+- name: Deleting the Load Balancer
+  ec2_elb_lb:
+    state: absent
+    wait: false
+    region: "{{ aws_region }}"
+    name: "{{ lb_name }}"
+
+- pause:
+    seconds: 5

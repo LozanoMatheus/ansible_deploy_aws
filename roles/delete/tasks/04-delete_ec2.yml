@@ -1,0 +1,8 @@
+
+- name: Deleting the Instances
+  ec2:
+    state: absent
+    wait: yes
+    region: "{{ aws_region }}"
+    instance_ids: "{{ item }}"
+  with_items: "{{ instance_ids }}"

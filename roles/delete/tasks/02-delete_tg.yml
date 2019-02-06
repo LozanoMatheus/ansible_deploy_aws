@@ -1,0 +1,7 @@
+
+- name: Deleting the Target Group
+  elb_target_group:
+    state: absent
+    wait: yes
+    region: "{{ aws_region }}"
+    name: "{{ tg_name }}"

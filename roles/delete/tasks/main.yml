@@ -1,0 +1,21 @@
+
+- import_tasks: 01-delete_asg.yml
+  when: ( delete_asg|bool == true or delete_env|bool == true )
+
+- import_tasks: 02-delete_tg.yml
+  when: ( delete_tg|bool == true or delete_env|bool == true )
+
+- import_tasks: 03-delete_lb.yml
+  when: ( delete_lb|bool == true or delete_env|bool == true )
+
+- import_tasks: 04-delete_ec2.yml
+  when: ( delete_ec2|bool == true or delete_env|bool == true )
+
+- import_tasks: 05-delete_lc.yml
+  when: ( delete_lc|bool == true or delete_env|bool == true )
+
+- import_tasks: 06-delete_sg.yml
+  when: ( delete_sg|bool == true or delete_env|bool == true )
+
+- import_tasks: 07-delete_key.yml
+  when: ( delete_key|bool == true or delete_env|bool == true )

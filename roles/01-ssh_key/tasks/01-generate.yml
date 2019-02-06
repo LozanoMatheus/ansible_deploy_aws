@@ -1,0 +1,17 @@
+
+- name: Checking SSH key
+  file:
+    path: "{{ ssh_local_path }}/{{ item }}"
+    state: file
+  with_items:
+    - "{{ ssh_file }}"
+    - "{{ ssh_file }}.pub"
+  register: file_exists
+  ignore_errors: yes
+
+- name: Generating the key
+  shell: >-
+    chmod 0600 {{ ssh_local_path }}/{{ ssh_file }}* || true
+    && yes y | ssh-keygen -q -t rsa -f {{ ssh_local_path }}/{{ ssh_file }} -C "{{ ssh_user }}" -N ""
+    && chmod 0400 {{ ssh_local_path }}/{{ ssh_file }}*
+  when: "'absent' in file_exists|json_query('results[*].state')"

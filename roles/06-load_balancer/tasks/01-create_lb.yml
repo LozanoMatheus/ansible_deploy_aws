@@ -1,0 +1,20 @@
+
+- name: Creating the load balancer
+  ec2_elb_lb:
+    state: present
+    wait: yes
+    region: "{{ aws_region }}"
+    name: "{{ lb_name }}"
+    scheme: "{{ lb_scheme }}"
+    security_group_ids: "{{ security_group_ids }}"
+    listeners:
+      - protocol: http
+        load_balancer_port: 80
+        instance_port: 8000
+    purge_listeners: yes
+    zones:
+      - "{{ item }}"
+    purge_zones: yes
+  with_items:
+    - "{{ azs }}"
+  register: lb_return

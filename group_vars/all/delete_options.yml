@@ -1,0 +1,15 @@
+delete_env: false
+
+delete_asg: false
+
+delete_tg: false
+
+delete_lb: false
+
+delete_ec2: false
+
+delete_lc: false
+
+delete_sg: false
+
+delete_key: false

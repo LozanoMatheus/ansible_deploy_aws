@@ -1,0 +1,6 @@
+
+- import_tasks: 01-generate_sg.yml
+
+- include_tasks: 02-create_sg.yml
+
+- include_tasks: 03-setup_vars.yml

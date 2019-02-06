@@ -1,0 +1,11 @@
+
+- name: Waiting for dependencies be deleted
+  pause:
+    minutes: 2
+
+- name: "Delete Security Group"
+  ec2_group:
+    state: absent
+    region: "{{ aws_region }}"
+    group_id: "{{ item }}"
+  with_items: "{{ security_group_ids }}"

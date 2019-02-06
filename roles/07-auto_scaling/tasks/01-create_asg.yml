@@ -1,0 +1,34 @@
+
+- name: Creating ASG Group
+  ec2_asg:
+    state: present
+    region: "{{ aws_region }}"
+    wait_for_instances: yes
+    name: "{{ asg_name }}"
+    launch_config_name: "{{ lc_return.name }}"
+    min_size: 1
+    max_size: 3
+    desired_capacity: 2
+    vpc_zone_identifier: "{{ subnet_id }}"
+    health_check_type: EC2
+    health_check_period: 300
+    tags:
+      - Owner: "{{ owner }}"
+        propagate_at_launch: yes
+      - Mode: "asg-auto"
+        propagate_at_launch: yes
+  register: asg_return
+
+- name: Get all instances ids
+  set_fact:
+    instance_ids: "{{ instance_ids + asg_return.instances if instance_ids is defined else asg_return.instances }}"
+    auto_scaling_group_name: "{{ asg_return.auto_scaling_group_name }}"
+
+- name: Creating var file with ASG Files
+  template:
+    src: "{{ item }}.j2"
+    dest: "group_vars/all/tmp_{{ item }}.yml"
+    force: yes
+  with_items:
+    - "asg_name"
+    - "instance_ids"

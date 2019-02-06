@@ -1,0 +1,9 @@
+
+- name: Checking if already exists the first instance
+  ec2_instance_facts:
+    region: "{{ aws_region }}"
+    filters:
+      "tag:Owner": "{{ owner }}"
+      "tag:Mode": "manual"
+      instance-state-name: running
+  register: ec2_check_return

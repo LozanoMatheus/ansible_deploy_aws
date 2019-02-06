@@ -1,0 +1,24 @@
+sg_roles_cidr_ip:
+  # - port: 22
+  #   proto: tcp
+  #   cidr_ip: 0.0.0.0/0
+  - port: 80
+    proto: tcp
+    cidr_ip: 0.0.0.0/0
+  - port: 443
+    proto: tcp
+    cidr_ip: 0.0.0.0/0
+  # - port: 8000
+  #   proto: tcp
+  #   cidr_ip: 0.0.0.0/0
+  # - port: 8080
+  #   proto: tcp
+  #   cidr_ip: 0.0.0.0/0
+
+sg_roles_group_name:
+  - port: 8000
+    proto: "tcp"
+    group_name: "{{ sg_name }}"
+  - port: 8080
+    proto: "tcp"
+    group_name: "{{ sg_name }}"

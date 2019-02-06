@@ -1,0 +1,6 @@
+
+- name: Creating file with all Security Groups
+  template:
+    src: "create_sg.j2"
+    dest: "roles/02-security_groups/tasks/02-create_sg.yml"
+    force: yes

@@ -1,0 +1,18 @@
+
+- name: Creating the Target Group
+  elb_target_group:
+    state: present
+    wait: yes
+    name: "{{ tg_name }}"
+    region: "{{ aws_region }}"
+    target_type: instance
+    protocol: http
+    port: 8000
+    vpc_id: "{{ vpc_id }}"
+    health_check_protocol: http
+    health_check_path: /health/live
+    healthy_threshold_count: 5
+    unhealthy_threshold_count: 2
+    health_check_timeout: 5
+    health_check_interval: 30
+    successful_response_codes: "200-300"

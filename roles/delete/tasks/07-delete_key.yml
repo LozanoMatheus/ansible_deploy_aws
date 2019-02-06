@@ -1,0 +1,7 @@
+
+- name: "Delete Key Pair"
+  ec2_key:
+    state: absent
+    wait: yes
+    region: "{{ aws_region }}"
+    name: "{{ ssh_file }}"

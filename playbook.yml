@@ -1,0 +1,21 @@
+
+- name: Creating the Stack
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - 01-ssh_key
+    - 02-security_groups
+    - 03-ec2
+    - 04-launch_configuration
+    - 05-target_group
+    - 06-load_balancer
+    - 07-auto_scaling
+  tasks:
+    - include_role:
+        name: get_all_instances
+
+- name: Deleting environment
+  hosts: localhost
+  gather_facts: false
+  roles:
+    - delete

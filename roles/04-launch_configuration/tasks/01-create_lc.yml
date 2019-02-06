@@ -1,0 +1,17 @@
+
+- name: "Create launch configuration"
+  ec2_lc:
+    region: "{{ aws_region }}"
+    name: "{{ lc_name }}"
+    image_id: "{{ ami_id }}"
+    key_name: "{{ ssh_file }}"
+    security_groups: [ '{{ sg_name }}' ]
+    user_data: "{{ lookup('file', '{{ bootstrap_path }}/bootstrap_countries.sh') }}"
+    instance_type: "{{ instance_type }}"
+    instance_monitoring: yes
+    volumes:
+    - device_name: "{{ volumes | json_query('device_name') }}"
+      volume_type: "{{ volumes | json_query('volume_type') }}"
+      volume_size: "{{ volumes | json_query('volume_size') }}"
+      delete_on_termination: "{{ volumes | json_query('delete_on_termination') }}"
+  register: lc_return
