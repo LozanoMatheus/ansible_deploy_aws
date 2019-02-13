@@ -3,18 +3,17 @@
   ec2_elb_lb:
     state: present
     wait: yes
+    purge_instance_ids: yes
+    purge_listeners: yes
+    purge_subnets: yes
+    purge_zones: yes
     region: "{{ aws_region }}"
-    name: "{{ lb_name }}"
-    scheme: "{{ lb_scheme }}"
+    name: "{{ load_balacer['name'] }}"
+    scheme: "{{ load_balacer['scheme'] }}"
     security_group_ids: "{{ security_group_ids }}"
     listeners:
       - protocol: http
         load_balancer_port: 80
         instance_port: 8000
-    purge_listeners: yes
-    zones:
-      - "{{ item }}"
-    purge_zones: yes
-  with_items:
-    - "{{ azs }}"
+    zones: "{{ azs }}"
   register: lb_return
