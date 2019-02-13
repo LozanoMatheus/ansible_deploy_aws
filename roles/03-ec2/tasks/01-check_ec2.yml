@@ -3,7 +3,13 @@
   ec2_instance_facts:
     region: "{{ aws_region }}"
     filters:
-      "tag:Owner": "{{ owner }}"
+      "tag:Owner": "{{ item['owner'] }}"
       "tag:Mode": "manual"
       instance-state-name: running
   register: ec2_check_return
+  with_items:
+    - "{{ tags }}"
+
+- name: Get manual instances
+  set_fact:
+    get_manual_instances: "{{ ec2_check_return | json_query('results[*].instances[]') }}"

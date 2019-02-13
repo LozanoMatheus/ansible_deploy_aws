@@ -1,51 +1,51 @@
 - name: Creating the ec2
   ec2:
     state: present
-    image: "{{ ami_id }}"
+    image: "{{ ami['id'] }}"
     region: "{{ aws_region }}"
     wait: yes
     assign_public_ip: yes
-    key_name: "{{ ssh_file }}"
-    instance_type: "{{ instance_type }}"
+    key_name: "{{ ssh_key['file'] }}"
+    instance_type: "{{ instance['type'] }}"
     group_id: "{{ security_group_ids }}"
-    count: "{{ instance_count | int }}"
+    count: "{{ instance['count'] | int }}"
     monitoring: yes
-    vpc_subnet_id: "{{ subnet_id }}"
-    user_data: "{{ lookup('file', '{{ bootstrap_path }}/bootstrap_countries.sh') }}"
+    vpc_subnet_id: "{{ subnet['id'] }}"
+    user_data: "{{ lookup('file', bootstrap['path'] + bootstrap['countries']) }}"
     volumes:
-      - device_name: "{{ volumes | json_query('device_name') }}"
-        snapshot: "{{ volumes | json_query('volume_snapshot') }}"
-        volume_type: "{{ volumes | json_query('volume_type') }}"
-        volume_size: "{{ volumes | json_query('volume_size') }}"
-        delete_on_termination: "{{ volumes | json_query('delete_on_termination') }}"
+      - device_name: "{{ volumes['device_name'] }}"
+        snapshot: "{{ volumes['volume_snapshot'] }}"
+        volume_type: "{{ volumes['volume_type'] }}"
+        volume_size: "{{ volumes['volume_size'] }}"
+        delete_on_termination: "{{ volumes['delete_on_termination'] }}"
     instance_tags:
-      Owner: "{{ owner }}"
+      Owner: "{{ tags['owner'] }}"
       Mode: "manual"
-  when: ec2_check_return.instances|length == 0
+  when: get_manual_instances|length == 0
   register: ec2_return
 
 - name: Get all instances ids
   set_fact:
     instance_ids: "{{ instance_ids + ec2_return.instance_ids if instance_ids is defined else ec2_return.instance_ids }}"
-  when: ec2_check_return.instances|length == 0
+  when: get_manual_instances|length == 0
 
 - name: Get instances IPs
   set_fact:
     instances_private_ipv4: "{{ ec2_return | json_query('instances[*].private_ip') }}"
     instances_public_ipv4: "{{ ec2_return | json_query('instances[*].public_ip') }}"
-  when: ec2_check_return.instances|length == 0
+  when: get_manual_instances|length == 0
 
 - name: Creating var file with instances IDs
   template:
     src: instance_ids.j2
     dest: group_vars/all/tmp_instance_ids.yml
-  when: ec2_check_return.instances|length == 0
+  when: get_manual_instances|length == 0
 
 - name: Creating inventory file
   template:
     src: instance_private_ipv4.j2
     dest: hosts
-  when: ec2_check_return.instances|length == 0
+  when: get_manual_instances|length == 0
 
 - name: Instances Private ipv4
   debug: msg={{ instances_private_ipv4 }}
