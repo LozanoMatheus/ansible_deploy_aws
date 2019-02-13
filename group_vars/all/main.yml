@@ -1,42 +1,59 @@
 
-ssh_local_path: files/keys
-ssh_file: ec2_ssh_key
-ssh_user: ec2_user
-
-sg_name: lozano_poc
-sg_desc: SG to be used on PoC by Matheus Lozano
-
-# vpc_id: <DEFINE_IT>
-
-# subnet_id: <DEFINE_IT>
-
-delete_instances: false
-
-# ami_id: <DEFINE_IT>
-
-lc_name: lc_mlozano
-
 aws_region: us-east-1
 
-bootstrap_path: files/bootstrap
+ssh_key: 
+  local_path: "files/keys/"
+  file: "ec2_ssh_key"
+  user: "ec2_user"
+  maldito: "files/keys/ec2_ssh_key.pub"
 
-owner: mlozano
+ssh_key_full_path: "{{ ssh_key['local_path'] + ssh_key['file'] + '.pub' }}"
 
-instance_type: t2.micro
-instance_count: 1
+security_group:
+  name: lozano_poc
+  description: SG to be used on PoC by Matheus Lozano
+
+vpc:
+  id: vpc-abcfc6d2
+
+subnet:
+  id: subnet-f1ffd1dd
+
+ami:
+  id: ami-01e3b8c3a51e88954
+
+bootstrap:
+  path: "files/bootstrap/"
+  countries: "bootstrap_countries.sh"
 
 volumes:
   device_name: "/dev/xvda"
   volume_type: "gp2"
   iops: 100
-  # volume_snapshot: "<DEFINE_IT>"
+  volume_snapshot: "snap-042f3271b38c0f653"
   volume_size: 15
   delete_on_termination: yes
 
-tg_name: tg-mlozano
+instance:
+  type: t2.micro
+  count: 1
 
-lb_name: lb-mlozano
-# lb_scheme: <DEFINE_IT>
+launch_configuration:
+  name: lc_mlozano
+
+tags:
+  owner: mlozano
+
+target_group:
+  name: tg-mlozano
+
+load_balacer:
+  name: lb-mlozano
+  scheme: internet-facing
+
+auto_scale_group:
+  name: asg-mlozano
+
 azs:
   - "{{ aws_region + 'a' }}"
   - "{{ aws_region + 'b' }}"
@@ -44,5 +61,3 @@ azs:
   - "{{ aws_region + 'd' }}"
   - "{{ aws_region + 'e' }}"
   - "{{ aws_region + 'f' }}"
-
-asg_name: asg-mlozano

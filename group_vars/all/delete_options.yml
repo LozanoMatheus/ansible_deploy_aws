@@ -13,3 +13,5 @@ delete_lc: false
 delete_sg: false
 
 delete_key: false
+
+delete_instances: false
