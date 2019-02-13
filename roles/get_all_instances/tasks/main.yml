@@ -6,7 +6,7 @@
     ec2_instance_facts:
       region: "{{ aws_region }}"
       filters:
-        "tag:Owner": "{{ owner }}"
+        "tag:Owner": "{{ tags['owner'] }}"
         instance-state-name: running
     register: all_instances
   - set_fact:
