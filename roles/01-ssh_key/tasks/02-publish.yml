@@ -4,4 +4,4 @@
     name: "{{ ssh_key['file'] }}"
     region: "{{ aws_region }}"
     key_material: "{{ lookup('file', ssh_key['local_path'] + '/' + ssh_key['file'] + '.pub' )}}"
-  when: ssh_key_created|changed
+  when: ssh_key_created is changed

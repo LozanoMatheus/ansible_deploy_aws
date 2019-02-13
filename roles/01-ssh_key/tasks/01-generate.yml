@@ -1,4 +1,12 @@
 
+- name: Checking if the key exists
+  ec2_key:
+    name: "{{ ssh_key['file'] }}"
+    region: "{{ aws_region }}"
+    state: present
+  ignore_errors: yes
+  register: check_ssh_key_return
+
 - name: Checking SSH key
   file:
     path: "{{ ssh_key['local_path'] }}/{{ item }}"
@@ -8,6 +16,7 @@
     - "{{ ssh_key['file'] }}.pub"
   register: file_exists
   ignore_errors: yes
+  when: check_ssh_key_return is changed
 
 - name: Generating the key
   shell: >-
@@ -16,4 +25,4 @@
     && yes y | ssh-keygen -q -t rsa -f {{ ssh_key['local_path'] }}/{{ ssh_key['file'] }} -C "{{ ssh_key['user'] }}" -N ""
     && chmod 0400 {{ ssh_key['local_path'] }}/{{ ssh_key['file'] }}*
   register: ssh_key_created
-  when: "'absent' in file_exists|json_query('results[*].state')"
+  when: "'absent' in file_exists|json_query('results[*].state') or check_ssh_key_return is changed"
