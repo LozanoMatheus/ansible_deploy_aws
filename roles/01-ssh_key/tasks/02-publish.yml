@@ -1,6 +1,7 @@
 
-- name: Deploying the ssh key {{ ssh_file }}
+- name: Deploying the ssh key {{ ssh_key['file'] }}
   ec2_key:
-    name: "{{ ssh_file }}"
+    name: "{{ ssh_key['file'] }}"
     region: "{{ aws_region }}"
-    key_material: "{{ lookup('file', '{{ ssh_local_path }}/{{ ssh_file }}.pub') }}"
+    key_material: "{{ lookup('file', ssh_key['local_path'] + '/' + ssh_key['file'] + '.pub' )}}"
+  when: ssh_key_created|changed
