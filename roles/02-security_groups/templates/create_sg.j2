@@ -7,9 +7,9 @@
     region: "{{ aws_region }}"
     purge_rules_egress: yes
     purge_rules: yes
-    name: "{{ sg_name }}"
-    description: "{{ sg_desc }}"
-    vpc_id: "{{ vpc_id }}"
+    name: "{{ security_group['name'] }}"
+    description: "{{ security_group['description'] }}"
+    vpc_id: "{{ vpc['id'] }}"
     state: present
     rules:
 {% for sg_cidr_var in sg_roles_cidr_ip %}
@@ -18,11 +18,11 @@
       to_port: "{{ sg_cidr_var.port }}"
       cidr_ip: "{{ sg_cidr_var.cidr_ip }}"
 {% endfor %}
-{% for sg_gname_var in sg_roles_group_name %}
-    - proto: "{{ sg_gname_var.proto }}"
-      from_port: "{{ sg_gname_var.port }}"
-      to_port: "{{ sg_gname_var.port }}"
-      group_name: "{{ sg_name }}"
+{% for sg_name_var in sg_roles_group_name %}
+    - proto: "{{ sg_name_var.proto }}"
+      from_port: "{{ sg_name_var.port }}"
+      to_port: "{{ sg_name_var.port }}"
+      group_name: "{{ security_group['name'] }}"
 {% endfor %}
     rules_egress:
 {% for sg_cidr_var in sg_roles_cidr_ip %}
@@ -31,10 +31,10 @@
       to_port: "{{ sg_cidr_var.port }}"
       cidr_ip: "{{ sg_cidr_var.cidr_ip }}"
 {% endfor %}
-{% for sg_gname_var in sg_roles_group_name %}
-    - proto: "{{ sg_gname_var.proto }}"
-      from_port: "{{ sg_gname_var.port }}"
-      to_port: "{{ sg_gname_var.port }}"
-      group_name: "{{ sg_name }}"
+{% for sg_name_var in sg_roles_group_name %}
+    - proto: "{{ sg_name_var.proto }}"
+      from_port: "{{ sg_name_var.port }}"
+      to_port: "{{ sg_name_var.port }}"
+      group_name: "{{ security_group['name'] }}"
 {% endfor %}
   register: sg_return
