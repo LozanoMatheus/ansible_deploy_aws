@@ -4,16 +4,16 @@
     state: present
     region: "{{ aws_region }}"
     wait_for_instances: yes
-    name: "{{ asg_name }}"
+    name: "{{ auto_scale_group['name'] }}"
     launch_config_name: "{{ lc_return.name }}"
     min_size: 1
     max_size: 3
     desired_capacity: 2
-    vpc_zone_identifier: "{{ subnet_id }}"
+    vpc_zone_identifier: "{{ subnet['id'] }}"
     health_check_type: EC2
     health_check_period: 300
     tags:
-      - Owner: "{{ owner }}"
+      - Owner: "{{ tags['owner'] }}"
         propagate_at_launch: yes
       - Mode: "asg-auto"
         propagate_at_launch: yes
