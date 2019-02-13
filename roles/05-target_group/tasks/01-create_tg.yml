@@ -3,12 +3,12 @@
   elb_target_group:
     state: present
     wait: yes
-    name: "{{ tg_name }}"
+    name: "{{ target_group['name'] }}"
     region: "{{ aws_region }}"
     target_type: instance
     protocol: http
     port: 8000
-    vpc_id: "{{ vpc_id }}"
+    vpc_id: "{{ vpc['id'] }}"
     health_check_protocol: http
     health_check_path: /health/live
     healthy_threshold_count: 5
