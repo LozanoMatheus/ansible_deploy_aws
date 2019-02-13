@@ -4,7 +4,7 @@
     state: absent
     wait: false
     region: "{{ aws_region }}"
-    name: "{{ lb_name }}"
+    name: "{{ load_balacer['name'] }}"
 
 - pause:
     seconds: 5

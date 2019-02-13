@@ -4,4 +4,4 @@
     state: absent
     wait: yes
     region: "{{ aws_region }}"
-    name: "{{ tg_name }}"
+    name: "{{ target_group['name'] }}"

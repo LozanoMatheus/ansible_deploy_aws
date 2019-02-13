@@ -4,4 +4,4 @@
     state: absent
     wait: yes
     region: "{{ aws_region }}"
-    name: "{{ ssh_file }}"
+    name: "{{ ssh_key['file'] }}"

@@ -2,5 +2,5 @@
 - name: "Delete Launch Configuration"
   ec2_lc:
     state: absent
-    name: "{{ lc_name }}"
     region: "{{ aws_region }}"
+    name: "{{ launch_configuration['name'] }}"
