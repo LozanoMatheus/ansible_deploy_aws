@@ -5,6 +5,8 @@
     wait: false
     region: "{{ aws_region }}"
     name: "{{ load_balacer['name'] }}"
+  register: del_lb_return
 
 - pause:
     seconds: 5
+  when: del_lb_return is changed

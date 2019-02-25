@@ -2,6 +2,7 @@
 - name: Waiting for dependencies be deleted
   pause:
     minutes: 2
+  when: del_lc_return is changed
 
 - name: "Delete Security Group"
   ec2_group:

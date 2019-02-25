@@ -4,3 +4,4 @@
     state: absent
     region: "{{ aws_region }}"
     name: "{{ launch_configuration['name'] }}"
+  register: del_lc_return
