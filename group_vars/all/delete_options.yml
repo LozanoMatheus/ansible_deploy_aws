@@ -1,4 +1,6 @@
-delete_env: false
+just_delete: false
+
+delete_env: "{{ True if just_delete | bool == True else False }}"
 
 delete_asg: false
 

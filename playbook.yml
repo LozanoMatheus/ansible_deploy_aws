@@ -3,13 +3,13 @@
   hosts: localhost
   gather_facts: false
   roles:
-    - 01-ssh_key
-    - 02-security_groups
-    - 03-ec2
-    - 04-launch_configuration
-    - 05-target_group
-    - 06-load_balancer
-    - 07-auto_scaling
+    - { role: 01-ssh_key, when: just_delete | bool == false }
+    - { role: 02-security_groups, when: just_delete | bool == false }
+    - { role: 03-ec2, when: just_delete | bool == false }
+    - { role: 04-launch_configuration, when: just_delete | bool == false }
+    - { role: 05-target_group, when: just_delete | bool == false }
+    - { role: 06-load_balancer, when: just_delete | bool == false }
+    - { role: 07-auto_scaling, when: just_delete | bool == false }
   tasks:
     - include_role:
         name: get_all_instances
@@ -18,4 +18,4 @@
   hosts: localhost
   gather_facts: false
   roles:
-    - delete
+    - { role: delete, when: just_delete | bool == true }
