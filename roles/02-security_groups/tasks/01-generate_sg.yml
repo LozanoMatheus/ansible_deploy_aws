@@ -1,4 +1,14 @@
 
+- name: Get my public ipv4
+  uri:
+    url: https://ifconfig.me/ip
+    return_content: yes
+  register: my_external_ip
+
+- name: Set up public ipv4 variable.
+  set_fact:
+    my_public_ipv4: "{{ my_external_ip.content + '/32' }}"
+
 - name: Creating file with all Security Groups
   template:
     src: "create_sg.j2"
