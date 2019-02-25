@@ -20,7 +20,8 @@ subnet:
   id: subnet-f1ffd1dd
 
 ami:
-  id: ami-01e3b8c3a51e88954
+  # id: ami-01e3b8c3a51e88954
+  id: ami-02eac2c0129f6376b
 
 bootstrap:
   path: "files/bootstrap/"
@@ -30,13 +31,14 @@ volumes:
   device_name: "/dev/xvda"
   volume_type: "gp2"
   iops: 100
-  volume_snapshot: "snap-042f3271b38c0f653"
+  # volume_snapshot: "snap-042f3271b38c0f653"
+  # volume_snapshot: "snap-010d360e3cba720ba"
   volume_size: 15
   delete_on_termination: yes
 
 instance:
-  type: t2.micro
-  count: 1
+  type: t3.medium
+  count: 3
 
 launch_configuration:
   name: lc_mlozano
