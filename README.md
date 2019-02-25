@@ -1,3 +1,6 @@
+[![](https://images.microbadger.com/badges/image/lozanomatheus/ansible_deploy_aws:latest.svg)](https://microbadger.com/images/lozanomatheus/ansible_deploy_aws:latest "Get your own image badge on microbadger.com")
+[![](https://images.microbadger.com/badges/version/lozanomatheus/ansible_deploy_aws:latest.svg)](https://microbadger.com/images/lozanomatheus/ansible_deploy_aws:latest "Get your own version badge on microbadger.com")
+
 # Deploy AWS Stack with Ansible
 
 This project will deploy the entire stack on AWS and it will store the state for this stack.
