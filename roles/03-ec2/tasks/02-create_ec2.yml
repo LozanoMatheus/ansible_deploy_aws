@@ -11,10 +11,10 @@
     count: "{{ instance['count'] | int }}"
     monitoring: yes
     vpc_subnet_id: "{{ subnet['id'] }}"
-    user_data: "{{ lookup('file', bootstrap['path'] + bootstrap['countries']) }}"
+    # user_data: "{{ lookup('file', bootstrap['path'] + bootstrap['countries']) }}"
     volumes:
       - device_name: "{{ volumes['device_name'] }}"
-        snapshot: "{{ volumes['volume_snapshot'] }}"
+        # snapshot: "{{ volumes['volume_snapshot'] }}"
         volume_type: "{{ volumes['volume_type'] }}"
         volume_size: "{{ volumes['volume_size'] }}"
         delete_on_termination: "{{ volumes['delete_on_termination'] }}"
@@ -43,7 +43,7 @@
 
 - name: Creating inventory file
   template:
-    src: instance_private_ipv4.j2
+    src: instance_public_ipv4.j2
     dest: hosts
   when: get_manual_instances|length == 0
 
