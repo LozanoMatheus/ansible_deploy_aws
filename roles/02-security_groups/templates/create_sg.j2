@@ -12,26 +12,26 @@
     vpc_id: "{{ vpc['id'] }}"
     state: present
     rules:
-{% for sg_cidr_var in sg_roles_cidr_ip %}
+{% for sg_cidr_var in sg_roles_cidr_ip['ingress'] %}
     - proto: "{{ sg_cidr_var.proto }}"
       from_port: "{{ sg_cidr_var.port }}"
       to_port: "{{ sg_cidr_var.port }}"
       cidr_ip: "{{ sg_cidr_var.cidr_ip }}"
 {% endfor %}
-{% for sg_name_var in sg_roles_group_name %}
+{% for sg_name_var in sg_roles_group_name['ingress'] %}
     - proto: "{{ sg_name_var.proto }}"
       from_port: "{{ sg_name_var.port }}"
       to_port: "{{ sg_name_var.port }}"
       group_name: "{{ security_group['name'] }}"
 {% endfor %}
     rules_egress:
-{% for sg_cidr_var in sg_roles_cidr_ip %}
+{% for sg_cidr_var in sg_roles_cidr_ip['egress'] %}
     - proto: "{{ sg_cidr_var.proto }}"
       from_port: "{{ sg_cidr_var.port }}"
       to_port: "{{ sg_cidr_var.port }}"
       cidr_ip: "{{ sg_cidr_var.cidr_ip }}"
 {% endfor %}
-{% for sg_name_var in sg_roles_group_name %}
+{% for sg_name_var in sg_roles_group_name['egress'] %}
     - proto: "{{ sg_name_var.proto }}"
       from_port: "{{ sg_name_var.port }}"
       to_port: "{{ sg_name_var.port }}"
