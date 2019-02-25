@@ -10,7 +10,7 @@ It's possible to create/update/delete without changing the logic, just changing 
 
 * [Pre-requirements](https://github.com/LozanoMatheus/ansible_deploy_aws#pre-requirements)
 * [Running](https://github.com/LozanoMatheus/ansible_deploy_aws#running)
-  * [Deploying & Deleting](https://github.com/LozanoMatheus/ansible_deploy_aws#deploying-%26-deleting)
+  * [Deploying & Deleting](https://github.com/LozanoMatheus/ansible_deploy_aws#deploying--deleting)
   * [Just Deleting](https://github.com/LozanoMatheus/ansible_deploy_aws#just-deleting)
 * [How it works](https://github.com/LozanoMatheus/ansible_deploy_aws#how-it-works)
   * [SSH Key](https://github.com/LozanoMatheus/ansible_deploy_aws#ssh-key)
