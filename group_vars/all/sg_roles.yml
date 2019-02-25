@@ -1,31 +1,51 @@
 sg_roles_cidr_ip:
-  # - port: 22
-  #   proto: tcp
-  #   cidr_ip: 0.0.0.0/0
-  #   rule_desc: "Allow ssh access"
-  - port: 80
-    proto: tcp
-    cidr_ip: 0.0.0.0/0
-    rule_desc: "Allow http access to install packages via yum"
-  - port: 443
-    proto: tcp
-    cidr_ip: 0.0.0.0/0
-    rule_desc: "Allow https access to install packages via yum"
-  # - port: 8000
-  #   proto: tcp
-  #   cidr_ip: 0.0.0.0/0
-  #   rule_desc: "Allow 8000/tcp access to the app"
-  # - port: 8080
-  #   proto: tcp
-  #   cidr_ip: 0.0.0.0/0
-  #   rule_desc: "Allow 8080/tcp access to the app"
+  ingress:
+    - port: 22
+      proto: tcp
+      cidr_ip: "{{ my_public_ipv4 }}"
+      rule_desc: "Allow ssh access"
+  egress:
+    - port: 80
+      proto: tcp
+      cidr_ip: 0.0.0.0/0
+      rule_desc: "Allow http access to install packages via yum"
+    - port: 443
+      proto: tcp
+      cidr_ip: 0.0.0.0/0
+      rule_desc: "Allow https access to install packages via yum"
+    # - port: 8000
+    #   proto: tcp
+    #   cidr_ip: 0.0.0.0/0
+    #   rule_desc: "Allow 8000/tcp access to the app"
+    # - port: 8080
+    #   proto: tcp
+    #   cidr_ip: 0.0.0.0/0
+    #   rule_desc: "Allow 8080/tcp access to the app"
 
 sg_roles_group_name:
-  - port: 8000
-    proto: "tcp"
-    group_name: "{{ security_group['name'] }}"
-    rule_desc: "Allow 8000/tcp access to the app"
-  - port: 8080
-    proto: "tcp"
-    group_name: "{{ security_group['name'] }}"
-    rule_desc: "Allow 8080/tcp access to the app"
+  ingress:
+    # - port: 22
+    #   proto: tcp
+    #   cidr_ip: 0.0.0.0/0
+    #   rule_desc: "Allow ssh access"
+    # - port: 80
+    #   proto: tcp
+    #   cidr_ip: 0.0.0.0/0
+    #   rule_desc: "Allow http access to install packages via yum"
+    # - port: 443
+    #   proto: tcp
+    #   cidr_ip: 0.0.0.0/0
+    #   rule_desc: "Allow https access to install packages via yum"
+    - port: 0
+      proto: all
+      group_name: "{{ security_group['name'] }}"
+      rule_desc: "Allow communication between the servers"
+    # - port: 8080
+    #   proto: "tcp"
+    #   group_name: "{{ security_group['name'] }}"
+    #   rule_desc: "Allow 8080/tcp access to the app"
+  egress:
+    - port: 0
+      proto: all
+      group_name: "{{ security_group['name'] }}"
+      rule_desc: "Allow communication between the servers"
