@@ -1,0 +1,10 @@
+
+.git
+.dockerignore
+hosts
+tmp_*
+files/keys
+02-create_sg.yml
+Dockerfile
+Dockerfile.test.yml
+README.md
