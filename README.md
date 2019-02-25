@@ -1,7 +1,7 @@
-[![](https://images.microbadger.com/badges/image/lozanomatheus/ansible_deploy_aws:latest.svg)](https://microbadger.com/images/lozanomatheus/ansible_deploy_aws:latest "Get your own image badge on microbadger.com")
-[![](https://images.microbadger.com/badges/version/lozanomatheus/ansible_deploy_aws:latest.svg)](https://microbadger.com/images/lozanomatheus/ansible_deploy_aws:latest "Get your own version badge on microbadger.com")
-
 # Deploy AWS Stack with Ansible
+
+[![size-vs-layers](https://images.microbadger.com/badges/image/lozanomatheus/ansible_deploy_aws:latest.svg)](https://microbadger.com/images/lozanomatheus/ansible_deploy_aws:latest "Size vs Layers")
+[![tag-version](https://images.microbadger.com/badges/version/lozanomatheus/docker_ansible:latest.svg)](https://microbadger.com/images/lozanomatheus/docker_ansible:latest "Tag Version")
 
 This project will deploy the entire stack on AWS and it will store the state for this stack.
 
