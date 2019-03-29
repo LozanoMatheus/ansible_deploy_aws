@@ -17,7 +17,7 @@
         # snapshot: "{{ volumes['volume_snapshot'] }}"
         volume_type: "{{ volumes['volume_type'] }}"
         volume_size: "{{ volumes['volume_size'] }}"
-        delete_on_termination: "{{ volumes['delete_on_termination'] }}"
+        delete_on_termination: "{{ volumes['delete_on_termination'] | bool }}"
     instance_tags:
       Owner: "{{ tags['owner'] }}"
       Mode: "manual"
