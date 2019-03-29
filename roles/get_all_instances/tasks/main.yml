@@ -9,10 +9,14 @@
         "tag:Owner": "{{ tags['owner'] }}"
         instance-state-name: running
     register: all_instances
+
   - set_fact:
       instance_ids: "{{ all_instances | json_query('instances[*].instance_id') }}"
+    when: all_instances | json_query('instances[*].instance_id') | length  > 0
+
   - name: Creating var file with all instances
     template:
       src: "instance_ids.j2"
       dest: "group_vars/all/tmp_instance_ids.yml"
       force: yes
+    when: all_instances | json_query('instances[*].instance_id') | length  > 0
