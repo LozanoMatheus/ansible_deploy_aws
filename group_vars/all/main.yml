@@ -28,17 +28,18 @@ bootstrap:
   countries: "bootstrap_countries.sh"
 
 volumes:
-  device_name: "/dev/xvda"
+  # device_name: "/dev/xvda"
+  device_name: "/dev/sda1"
   volume_type: "gp2"
   iops: 100
   # volume_snapshot: "snap-042f3271b38c0f653"
   # volume_snapshot: "snap-010d360e3cba720ba"
-  volume_size: 15
+  volume_size: 40
   delete_on_termination: yes
 
 instance:
   type: t3.medium
-  count: 3
+  count: 1
 
 launch_configuration:
   name: lc_mlozano
