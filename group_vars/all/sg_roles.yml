@@ -4,11 +4,19 @@ sg_roles_cidr_ip:
       proto: tcp
       cidr_ip: "{{ my_public_ipv4 }}"
       rule_desc: "Allow ssh access"
+    - port: 0
+      proto: all
+      cidr_ip: "{{ my_public_ipv4 }}"
+      rule_desc: "Allow Kapacitor - Tick Stack"
   egress:
     - port: 80
       proto: tcp
       cidr_ip: 0.0.0.0/0
       rule_desc: "Allow http access to install packages via yum"
+    - port: -1
+      proto: icmp
+      cidr_ip: 0.0.0.0/0
+      rule_desc: "Allow ICMP to external endpoints"
     - port: 443
       proto: tcp
       cidr_ip: 0.0.0.0/0
