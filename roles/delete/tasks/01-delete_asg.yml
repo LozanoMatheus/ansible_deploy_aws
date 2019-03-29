@@ -5,4 +5,4 @@
     wait_for_instances: yes
     region: "{{ aws_region }}"
     name: "{{ item }}"
-  with_items: "{{ asg_names if asg_names is defined else auto_scaling_group_name }}"
+  with_items: "{{ asg_names if asg_names is defined else auto_scale_group['name'] }}"
