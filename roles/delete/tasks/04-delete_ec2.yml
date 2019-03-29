@@ -6,3 +6,4 @@
     region: "{{ aws_region }}"
     instance_ids: "{{ item }}"
   with_items: "{{ instance_ids }}"
+  when: "instance_ids is defined"
