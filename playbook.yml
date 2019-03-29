@@ -1,4 +1,3 @@
-
 - name: Creating the Stack
   hosts: localhost
   gather_facts: false
@@ -18,4 +17,13 @@
   hosts: localhost
   gather_facts: false
   roles:
-    - { role: delete, when: just_delete | bool == true }
+    - { role: delete, when: just_delete | bool == true or (
+        delete_env|bool == true
+        or delete_asg|bool == true
+        or delete_tg|bool == true
+        or delete_lb|bool == true
+        or delete_ec2|bool == true
+        or delete_lc|bool == true
+        or delete_sg|bool == true
+        or delete_key|bool == true
+        ) }
