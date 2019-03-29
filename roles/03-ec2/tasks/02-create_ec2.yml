@@ -21,31 +21,27 @@
     instance_tags:
       Owner: "{{ tags['owner'] }}"
       Mode: "manual"
-  when: get_manual_instances|length == 0
   register: ec2_return
 
 - name: Get all instances ids
   set_fact:
     instance_ids: "{{ instance_ids + ec2_return.instance_ids if instance_ids is defined else ec2_return.instance_ids }}"
-  when: get_manual_instances|length == 0
 
 - name: Get instances IPs
   set_fact:
     instances_private_ipv4: "{{ ec2_return | json_query('instances[*].private_ip') }}"
     instances_public_ipv4: "{{ ec2_return | json_query('instances[*].public_ip') }}"
-  when: get_manual_instances|length == 0
 
 - name: Creating var file with instances IDs
   template:
     src: instance_ids.j2
     dest: group_vars/all/tmp_instance_ids.yml
-  when: get_manual_instances|length == 0
+  when: "{{ ec2_check_return | json_query('results[*].instances[]') }} is defined"
 
 - name: Creating inventory file
   template:
     src: instance_public_ipv4.j2
     dest: hosts
-  when: get_manual_instances|length == 0
 
 - name: Instances Private ipv4
   debug: msg={{ instances_private_ipv4 }}
