@@ -2,3 +2,4 @@
 - import_tasks: 01-check_ec2.yml
 
 - import_tasks: 02-create_ec2.yml
+  when: get_manual_instances|length == 0
